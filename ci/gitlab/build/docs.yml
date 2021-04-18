@@ -1,0 +1,11 @@
+---
+.my_project_build_docs:
+  image: python:3.8
+  stage: build
+  before_script:
+    - "pip install --extra-index-url https://gitlab.com/api/v4/projects/25344049/packages/pypi/simple .[dev_documentation,all]"
+  script:
+    - mkdocs build --site-dir public
+  artifacts:
+    paths:
+      - public

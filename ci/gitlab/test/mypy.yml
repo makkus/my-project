@@ -1,0 +1,8 @@
+---
+my_project_test_mypy:
+  image: python:3.9
+  stage: test
+  before_script:
+    - "pip install --extra-index-url https://gitlab.com/api/v4/projects/25344049/packages/pypi/simple .[dev_testing,all]"
+  script:
+    - make mypy

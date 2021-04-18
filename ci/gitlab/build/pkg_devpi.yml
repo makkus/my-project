@@ -1,0 +1,40 @@
+---
+.my_project_build_pkg_devpi:
+  stage: build
+  before_script:
+    - pip install devpi-client
+    - rm -rf dist build
+    - devpi use https://pkgs.frkl.io/
+    - devpi login frkl --password="${DEVPI_PASSWORD}"
+  script:
+    - devpi use /frkl/dev
+    - devpi upload
+  artifacts:
+    paths:
+      - dist/
+
+my_project_build_pkg_devpi_dev_branch:
+  extends: .my_project_build_pkg_devpi
+  only:
+    - develop
+  artifacts:
+    expire_in: 1 month
+
+my_project_build_pkg_beta:
+  only:
+    - /^\d+\.\d+\.\d+b\d+$/
+  except:
+    - branches
+  script:
+    - devpi use /frkl/beta
+    - devpi upload
+
+my_project_build_pkg_tag:
+  extends: .my_project_build_pkg_devpi
+  only:
+    - /^\d+\.\d+\.\d+$/
+  except:
+    - branches
+  script:
+    - devpi use /frkl/stable
+    - devpi upload

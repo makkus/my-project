@@ -1,0 +1,15 @@
+---
+my_project_build_binary_linux:
+  image:
+    name: registry.gitlab.com/frkl/frkl.project:develop
+    entrypoint: [""]
+  stage: build
+  variables:
+    SRCDIR: $CI_PROJECT_DIR
+    TEMPDIR: "$CI_PROJECT_DIR/build_temp"
+    SPEC_FILE: "scripts/build-binary/onefile.spec"
+  script:
+    - "scripts/build-binary/build.sh --python-type pyenv"
+  artifacts:
+    paths:
+      - dist/linux-gnu/my-project

@@ -1,0 +1,30 @@
+---
+.my_project_test:
+  before_script:
+    - curl -O https://bootstrap.pypa.io/get-pip.py
+    - python get-pip.py
+    - pip install -U setuptools tox
+
+my_project_test_tox_py36:
+  extends: .my_project_test
+  image: python:3.6
+  script:
+    - tox -e py36
+
+my_project_test_tox_py37:
+  extends: .my_project_test
+  image: python:3.7
+  script:
+    - tox -e py37
+
+my_project_test_tox_py38:
+  image: python:3.8
+  extends: .my_project_test
+  script:
+    - tox -e py38
+
+my_project_test_tox_py39:
+  image: python:3.9
+  extends: .my_project_test
+  script:
+    - tox -e py39

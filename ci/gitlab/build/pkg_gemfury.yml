@@ -1,0 +1,27 @@
+---
+.my_project_build_pkg_gemfury:
+  stage: build
+  before_script:
+    - rm -rf dist build
+  script:
+    - UPLOAD_FILE=(dist/*.tar.gz)
+    - "curl -F package=@${UPLOAD_FILE} https://${GEMFURY_TOKEN}@push.fury.io/frkl/"
+    - UPLOAD_FILE=(dist/*.whl)
+    - "curl -F package=@${UPLOAD_FILE} https://${GEMFURY_TOKEN}@push.fury.io/frkl/"
+  artifacts:
+    paths:
+      - dist/
+
+my_project_build_pkg_gemfury_beta:
+  extends: .my_project_build_pkg_gemfury
+  only:
+    - /^\d+\.\d+\.\d+b\d+$/
+  except:
+    - branches
+
+my_project_build_pkg_gemfury_tag:
+  extends: .my_project_build_pkg_gemfury
+  only:
+    - /^\d+\.\d+\.\d+$/
+  except:
+    - branches

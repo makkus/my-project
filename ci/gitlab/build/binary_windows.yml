@@ -1,0 +1,16 @@
+---
+my_project_build_binary_windows:
+  image:
+    name: registry.gitlab.com/frkl/frkl.project:develop-win
+    entrypoint: [""]
+  stage: build_windows
+  needs:
+    - my_project_build_pkg
+  variables:
+    SRCDIR: $CI_PROJECT_DIR
+    TEMPDIR: "$CI_PROJECT_DIR/build_temp"
+  script:
+    - "/opt/entrypoint.sh"
+  artifacts:
+    paths:
+      - dist/windows/my-project.exe

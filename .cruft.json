@@ -1,0 +1,18 @@
+{
+  "template": "/home/markus/projects/frkl/../python-projects/frkl.project",
+  "commit": "bcfbf29d73808376028fac5fa4d19f4d2e1b3878",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "full_name": "Markus Binsteiner",
+      "email": "markus@frkl.io",
+      "project_name": "my-project",
+      "exe_name": "my-project",
+      "project_slug": "my_project",
+      "project_main_module": "my_project",
+      "project_short_description": "asdf",
+      "_template": "/home/markus/projects/frkl/../python-projects/frkl.project"
+    }
+  },
+  "directory": null
+}

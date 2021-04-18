@@ -1,0 +1,14 @@
+---
+my_project_build_pkg:
+  stage: build
+  variables:
+    UPLOAD_PROJECT_ID: $CI_PROJECT_ID
+  script:
+    - rm -rf dist build
+    - pip install twine
+    - python setup.py sdist bdist_wheel
+    - source ci/gitlab/set_env.sh
+    - TWINE_PASSWORD=${CI_JOB_TOKEN} TWINE_USERNAME=gitlab-ci-token python -m twine upload --repository-url https://gitlab.com/api/v4/projects/$UPLOAD_PROJECT_ID/packages/pypi dist/*
+  artifacts:
+    paths:
+      - dist/
