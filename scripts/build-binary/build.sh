@@ -113,7 +113,8 @@ function install_requirements () {
     local pyinstaller_version="${1}"
     local requirements_file="${2}"
 
-    pip install -U pip setuptools wheel
+    # apparently, github actions doesn't like it when I do this on windows (permission problem)
+    pip install -U pip setuptools wheel || true
     pip install "pyinstaller==${pyinstaller_version}"
 
     if [ -n "${requirements_file}" ]; then
